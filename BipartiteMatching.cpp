@@ -3,9 +3,9 @@ using namespace std;
 const int MAX = 2e3 + 1;
 
 struct BipartiteMatching {
-	int n, match; // index : 1 ~
+	int n, match; 	    // index : 1 ~
 	int A[MAX], B[MAX]; // A : left side nodes, B : right side nodes.
-						// indices of A : 1 ~ Asize, B : Asize + 1 ~ Asize + Bsize. 
+			    // indices of A : 1 ~ Asize, B : Asize + 1 ~ Asize + Bsize. 
 	bool v[MAX];
 	vector<int> adj[MAX];
 
@@ -35,7 +35,7 @@ struct BipartiteMatching {
 } BM;
 
 
-int n, m; // Ã¥ÀÌ n±Ç, »ç¶÷ÀÌ m¸í
+int n, m; // ÃƒÂ¥Ã€ÃŒ nÂ±Ã‡, Â»Ã§Â¶Ã·Ã€ÃŒ mÂ¸Ã­
 
 void build() {
 	scanf("%d %d", &n, &m);

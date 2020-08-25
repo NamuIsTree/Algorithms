@@ -35,7 +35,7 @@ struct BipartiteMatching {
 } BM;
 
 
-int n, m; // Ã¥ÀÌ n±Ç, »ç¶÷ÀÌ m¸í
+int n, m; // Asize = m, Bsize = n.
 
 void build() {
 	scanf("%d %d", &n, &m);

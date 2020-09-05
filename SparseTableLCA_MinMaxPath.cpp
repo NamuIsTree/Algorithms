@@ -5,7 +5,7 @@ const int MAX = 1e5 + 1;
 const int lgM = 18; // log2(MAX) + 1
 
 struct SparseTableLCA {
-	int n, root = 0, inDegree[MAX] = { 0 };
+	int n, root = 0;
 	int p[MAX][lgM] = { 0 }, depth[MAX] = { 0 }; // p[i][j] : i번째 노드의 2^j 번째 조상
 	int mn[MAX][lgM], mx[MAX][lgM];
 	bool v[MAX] = { false };
@@ -14,23 +14,6 @@ struct SparseTableLCA {
 	void add_edge(int u, int v, int c) {
 		adj[u].push_back({ v,c });
 		adj[v].push_back({ u,c });
-		inDegree[u]++, inDegree[v]++;
-	}
-
-	void find_root() {
-		queue<int> q;
-		for (int i = 1; i <= n; i++)
-			if (inDegree[i] == 1) q.push(i);
-
-		while (!q.empty()) {
-			int now = q.front(); q.pop();
-			root = now;
-			for (pii i : adj[now]) {
-				int next = i.first;
-				if (--inDegree[next] == 1)
-					q.push(next);
-			}
-		}
 	}
 
 	void dfs() {
@@ -91,7 +74,7 @@ void build() {
 		scanf("%d %d %d", &u, &v, &c);
 		LCA.add_edge(u, v, c);
 	}
-	LCA.find_root();
+	LCA.root = 1;
 	LCA.construct();
 }
 

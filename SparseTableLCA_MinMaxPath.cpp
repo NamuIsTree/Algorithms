@@ -63,6 +63,7 @@ struct SparseTableLCA {
 			}
 		}
 		N = min(N, min(mn[v][0], mn[u][0])), X = max(X, max(mx[v][0], mx[u][0]));
+		v = p[v][0];
 		return { N,X };
 	}
 

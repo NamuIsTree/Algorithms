@@ -15,7 +15,7 @@ struct Node {
     Node(ll _v, Node* p) : v(_v), p(p) {
         l = r = nullptr;
         sum = mx = mn = _v;
-        sz = 1, dummy = 0, flip = 0;
+        sz = 1, dummy = 0, flip = 0, lazy = 0;
     }
     Node(int _v) : Node(_v, nullptr) {}
     Node() : Node(0) {}
@@ -78,7 +78,7 @@ struct SplayTree {
     void rotate(Node* x) {
         auto p = x->p;
         Node* y;
-        push(p); push(x);
+        push(p); push_sum(p); push(x); push_sum(x);
         if (x == p->l) {
             p->l = y = x->r;
             x->r = p;
@@ -168,7 +168,8 @@ struct SplayTree {
         push_sum(now);
         while (1) {
             while (now->l && now->l->sz > k) {
-                now = now->l; push(now); push_sum(now);
+                now = now->l; push(now);
+                push_sum(now);
             }
             if (now->l) k -= now->l->sz;
             if (!k) break; k--;
@@ -253,6 +254,7 @@ struct SplayTree {
 
     void print(Node* x) {
         push(x);
+        push_sum(x);
         if (x->l) print(x->l);
         if (!x->dummy) cout << x->v << " ";
         if (x->r) print(x->r);
@@ -277,12 +279,20 @@ int main() {
     // lazy propagation ; add v to [a, b]  
     //      tree.gather(a,b);
     //      Node *x = tree.root->r->l;
-    //      x->sum += x->sz * c; x->lazy += c;
+    //      x->sum += x->sz * v; x->lazy += v;
     //      tree.update(tree.root);
     // tree.shift(int s, int e, int k) : shift [s, e] with k.
     // tree.getidx(int k) : print kth element of array. (maybe tree)
     // tree.print(Node *x) : print subtree of x.
-    
 
-    cout << "program ends\n";
+    tree.flip(2, 5);
+    tree.print(tree.root); cout << '\n';
+
+    tree.gather(2, 4);
+    Node* x = tree.root->r->l;
+    x->sum += x->sz * 5; x->lazy += 5;
+    tree.update(tree.root);
+
+    tree.gather(1, 5);
+    tree.print(tree.root);
 }
